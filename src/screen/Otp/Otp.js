@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import React, { createRef, useEffect, useState } from 'react';
-import MyStatusBar from '../../components/MyStatusBar';
+import MyStatusBar from '../../component/common/MyStatusBar';
 import { Colors, Fonts, Sizes } from '../../assets/style';
 import LinearGradient from 'react-native-linear-gradient';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -15,7 +15,7 @@ import {
   user_web_api_login,
   user_web_api_verification_otp,
 } from '../../config/constants';
-import Loader from '../../components/Loader';
+import Loader from '../../component/common/Loader';
 import axios from 'axios';
 import { showToastWithGravityAndOffset } from '../../methods/toastMessage';
 
@@ -59,9 +59,8 @@ const Otp = ({ navigation, route }) => {
           `number=${route.params.phone_number}&otp=${value}`,
       })
         .then(async res => {
-          console.log(res, 'response of otp button')
           setIsLoading(false);
-          navigation.navigate('register', {
+          navigation.navigate('Register', {
             phone_number: route.params.phone_number,
             id: res.data.id,
           });

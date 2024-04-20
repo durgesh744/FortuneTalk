@@ -15,7 +15,7 @@ const Splash = ({ navigation, route }) => {
     let providerData = await AsyncStorage.getItem('user');
     let data = JSON.parse(providerData);
     if (data) {
-      // navigation.navigate("Home");
+      navigation.navigate("Home");
     } else {
       navigation.navigate("login");
     }

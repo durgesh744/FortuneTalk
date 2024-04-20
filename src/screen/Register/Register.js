@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import React, { useCallback, useState } from 'react';
 import { Colors, Fonts, Sizes } from '../../assets/style';
-import MyStatusBar from '../../components/MyStatusBar';
+import MyStatusBar from '../../component/common/MyStatusBar';
 import LinearGradient from 'react-native-linear-gradient';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { BottomSheet, Input } from '@rneui/themed';
@@ -29,8 +29,9 @@ import {
   update_customer_profile,
 } from '../../config/constants';
 import { showToastWithGravityAndOffset } from '../../methods/toastMessage';
-import Loader from '../../components/Loader';
+import Loader from '../../component/common/Loader';
 import CountryPicker from 'rn-country-picker';
+import { connect } from 'react-redux';
 
 const genderData = [
   { label: 'Male', value: 'male' },
@@ -168,16 +169,22 @@ const Register = ({ navigation, selectedLocation, route }) => {
     }
   };
 
-  const register = async () => {
+  console.log(state, "data data data data data ")
 
+
+  const register = async () => {
+    
+    console.log(api_url2 + update_customer_profile + `/66234cb6bc0b52dd9c6881f4`,     " url: api_url2 + update_customer_profile +`/661caf611d0b4e48b67634d2`")
+    
     if (validation()) {
-      updateState({ isLoading: false });
+      updateState({ isLoading: true });
+
       let data = new FormData();
-      data.append('first_name', firstName),
+        data.append('first_name', firstName),
         data.append('last_name', lastName),
         data.append('date_of_birth', moment(birthDate).format('YYYY-MM-DD'));
-      data.append('time_of_birth', moment(time).format('hh:mm'));
-      data.append('gender', gender),
+        data.append('time_of_birth', moment(time).format('hh:mm'));
+        data.append('gender', gender),
         data.append('email', email.length == 0 ? 'null' : email),
         data.append('type', 'phone'),
         data.append('country', 'India'),
@@ -185,26 +192,30 @@ const Register = ({ navigation, selectedLocation, route }) => {
         data.append('occupation', selectedOccupation),
         data.append('problem', selectedProblem),
         data.append('current_address', currentAddress);
-      data.append('place_of_birth', selectedLocation?.address);
-      data.append('lon', selectedLocation?.lat);
-      data.append('lat', selectedLocation?.long);
+        data.append('place_of_birth', selectedLocation?.address);
+        data.append('lon', selectedLocation?.lat);
+        data.append('lat', selectedLocation?.long);
 
       if (baseSixtyFour != null) {
         data.append('image', baseSixtyFour.toString());
       }
 
+      console.log(state, "data data data data data ")
+      console.log(api_url2 + update_customer_profile + `/661caf611d0b4e48b67634d2`,     " url: api_url2 + update_customer_profile +`/661caf611d0b4e48b67634d2`")
+      
+
       await axios({
         method: 'put',
-        url: api_url2 + update_customer_profile + `/661caf611d0b4e48b67634d2`,
+        url: api_url2 + update_customer_profile + `/66234cb6bc0b52dd9c6881f4`,
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'aplication/json',
         },
-        data: data,
+        data: state,
       })
         .then(res => {
           console.log(res, "res")
           updateState({ isLoading: false });
-          go_home();
+          navigation.navigate("Home");
         })
         .catch(err => {
           updateState({ isLoading: false });
@@ -213,9 +224,6 @@ const Register = ({ navigation, selectedLocation, route }) => {
     }
   };
 
-  const go_home = () => {
-    navigation.dispatch();
-  };
 
   const get_profile_pick = useCallback((type, options) => {
     if (type == 'capture') {
@@ -790,7 +798,7 @@ const Register = ({ navigation, selectedLocation, route }) => {
     return (
       <Input
         disabled
-        value={route.params.phone_number}
+        // value={route.params.phone_number}
         placeholder="Enter Mobile No."
         keyboardType="number-pad"
         maxLength={10}
@@ -889,7 +897,7 @@ const Register = ({ navigation, selectedLocation, route }) => {
           source={
             profileImage != null
               ? { uri: profileImage }
-              : require('../assets/images/users/user1.jpg')
+              : require('../../assets/images/users/user1.jpg')
           }
           style={{ width: '100%', height: '100%' }}
         />
@@ -949,6 +957,15 @@ const Register = ({ navigation, selectedLocation, route }) => {
   }
 
 };
+
+const mapStateToProps = state => ({
+  selectedLocation: state.user.selectedLocation,
+});
+
+const mapDispatchToProps = dispatch => ({ dispatch });
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
+
 
 const styles = StyleSheet.create({
   imageContainer: {
@@ -1123,6 +1140,3 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-
-
-export default Register

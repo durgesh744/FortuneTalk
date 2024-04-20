@@ -34,15 +34,15 @@ const Login = ({ navigation }) => {
     const validation = () => {
         const numericRegex = /^\d{10}$/;
         if (phoneNumber.length == 0) {
-            updateState({ errorMessage: 'Please enter phone number' });
+            setState((pre) => ({ ...pre,  errorMessage: 'Please enter phone number'  }))
             inputRef.current.shake();
             return false;
         } else if (phoneNumber.length != 10) {
-            updateState({ errorMessage: 'Please enter correct phone number' });
+            setState((pre) => ({ ...pre,  errorMessage: 'Please enter correct phone number'  }))
             inputRef.current.shake();
             return false;
         } else if (!numericRegex.test(phoneNumber)) {
-            updateState({ errorMessage: 'Please enter numeric value' });
+            setState((pre) => ({ ...pre,  errorMessage: 'Please enter numeric value'  }))
             inputRef.current.shake();
             return false;
         } else {
@@ -51,12 +51,7 @@ const Login = ({ navigation }) => {
     };
 
     const on_login = async () => {
-        updateState({ isLoading: true });
-
-        console.log(api_url2 +
-            user_web_api_login +
-            `number=${phoneNumber}`)
-
+        setState((pre) => ({ ...pre, isLoading: true }))
         if (validation()) {
             await axios({
                 method: 'post',
@@ -66,11 +61,12 @@ const Login = ({ navigation }) => {
                     `number=${phoneNumber}`,
             })
                 .then(res => {
-                    console.log(res.data)
-                    updateState({ isLoading: false });
+                    setState((pre) => ({ ...pre, isLoading: false }))
                     if (res.data.success) {
-                        navigation.navigate('otp', {
-                            otp: res.data.otp
+                         AsyncStorage.setItem("user", res.data)
+                        navigation.navigate('Otp', {
+                            otp: res.data.otp,
+                            phone_number:state.phoneNumber
                         });
                     } else {
                         showToastWithGravityAndOffset(res.data.msg);
@@ -78,7 +74,7 @@ const Login = ({ navigation }) => {
                 })
                 .catch(err => {
                     console.log(err);
-                    updateState({ isLoading: false });
+                    setState((pre) => ({ ...pre, isLoading: false }))
                 });
         }
     };
@@ -93,7 +89,9 @@ const Login = ({ navigation }) => {
         navigation.navigate(
         );
     };
-    
+
+    const { callingCode, cca2, phoneNumber, errorMessage, isLoading } = state;
+
     return (
         <View style={{ flex: 1 }}>
             <MyStatusBar
@@ -262,7 +260,7 @@ const Login = ({ navigation }) => {
 
     function phoneInput() {
         const onChangeText = text => {
-            updateState({ phoneNumber: text, errorMessage: '' });
+            setState({ phoneNumber: text, errorMessage: '', isLoading: false });
         };
         return (
             <Input
