@@ -8,7 +8,7 @@ export const img_url = 'https://fortunetest.fortunetalk.co.in/admin/uploads/';
 export const img_url_2 = 'https://fortunetest.fortunetalk.co.in/admin/uploads/vendor/';
 export const img_url_3 = 'https://fortunetest.fortunetalk.co.in/admin/';
 
-export const user_web_api_login = 'auth/otp?';
+export const user_web_api_login = 'user/otp?';
 
 export const api2_get_countries = 'api2/get_countries';
 export const api2_get_state = 'api2/get_state';
@@ -72,7 +72,7 @@ export const match_manglik_report = 'api2/match_manglik_report'
 export const kundli_get_planets = 'kundli/get_planets';
 export const add_or_update_device_token = 'Api_astro/add_or_update_device_token';
 
-export const update_customer_profile = 'auth';
+export const update_customer_profile = 'user';
 
 export const accept_chat = 'api/accept_chat';
 export const match_making = 'api2/match_making';
@@ -163,12 +163,12 @@ export const privacy_policy_astrologer = 'api/privacy_policy_astrologer';
 export const terms = 'api/terms';
 export const deductWallet_live_astro = 'api/deductWallet_live_astro'
 
-export const google_login = 'auth/login_with_google'
+export const google_login = 'user/login_with_google'
 
 export const send_otp_to_customer = 'api/sendOtpToCustomer'
 export const update_customer_phone = 'api/updateCustomerPhone'
 
-export const facebook_login = 'auth/login_with_facebook'
+export const facebook_login = 'user/login_with_facebook'
 
 export const live__video_audio_history = 'api/liveVideoAudioHistory'
 export const user_req_admin = 'api/userReqAdmin'

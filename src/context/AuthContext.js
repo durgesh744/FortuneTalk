@@ -11,23 +11,11 @@ export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [user, setUser] = useState(null);
 
-  const Login = (email, password) => {
-    // AuthService.login(email, password)
-    //   .then((res) => {
-    //     console.log("Login Successfully")
-    //     AsyncStorage.setItem("user", JSON.stringify(res))
-    //     setrolesAndPermissions(res.data.rolesAndPermissions);
-    //     setUser(res)
-    //     setIsLoading(true)
-    //   }).catch((err) => {
-    //     console.log(err)
-    //   })
-  }
-  
   const isLoggedIn = () => {
     AsyncStorage.getItem("user")
       .then((res) => {
         setUser(JSON.parse(res))
+        console.log(res, "res, kjankjfjka")
         setIsLoading(true)
       })
       .catch((error) => {
@@ -41,7 +29,8 @@ export const AuthProvider = ({ children }) => {
     }
   }, [])
 
-  const value = { Login, Logout, user, setUser, isLoading };
+
+  const value = { user, setUser, isLoading };
 
   return (
     <AuthContext.Provider value={value} >

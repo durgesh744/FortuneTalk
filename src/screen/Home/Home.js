@@ -1,7 +1,14 @@
-import { Text, View } from 'react-native'
+import { Button, Text, View } from 'react-native'
 import AstrologerList from '../../component/UI/AstrologerList/AstrologerList'
+import { removeItemFromLocalStorage } from '../../helper/useLocalStorage'
 
 const Home = ({ navigation, route }) => {
+
+  const handleLogout = async () => {
+    await removeItemFromLocalStorage("user")
+    navigation.navigate("login")
+  }
+
   return (
     <View style={{ paddingTop: 20 }}>
       <AstrologerList
@@ -16,6 +23,8 @@ const Home = ({ navigation, route }) => {
           max_call_min_last_user: 'Maximum wait time if busy',
         }}
       />
+
+      <Button title='Logout' onPress={handleLogout}></Button>
     </View>
   )
 }

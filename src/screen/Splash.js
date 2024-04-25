@@ -9,11 +9,10 @@ import { SCREEN_WIDTH } from '../config/Screen';
 import { Colors } from '../assets/style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Splash = ({ navigation, route }) => {
+const Splash = ({ navigation }) => {
 
   const navigate = async () => {
     let providerData = await AsyncStorage.getItem('user');
-    console.log(data, "data a gya hai ")
     let data = JSON.parse(providerData);
     if (data) {
       navigation.navigate("Home");

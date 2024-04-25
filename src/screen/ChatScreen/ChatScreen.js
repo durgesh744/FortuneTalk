@@ -12,7 +12,7 @@ const ChatScreen = () => {
     const [isLoading, setIsLoading] = useState([]);
     const [messages, setMessages] = useState([])
     const socket = getSocket()
-    console.log(socket.connected, "socket" , socket.id)
+    console.log(socket.connected, socket.id);
 
     const onSend = useCallback((messages = []) => {
         setMessages(previousMessages =>

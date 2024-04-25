@@ -23,9 +23,10 @@ import MyStatusBar from '../../component/common/MyStatusBar';
 import {
     GoogleSignin,
 } from '@react-native-google-signin/google-signin';
+import { useAuth } from '../../context/AuthContext';
 
 const Login = ({ navigation }) => {
-
+     const {setUser, user} = useAuth()
     const inputRef = createRef();
     const [state, setState] = useState({
         callingCode: '91',
@@ -60,6 +61,11 @@ const Login = ({ navigation }) => {
 
     const on_login = async () => {
         setState((pre) => ({ ...pre, isLoading: true }))
+
+        console.log(api_url2 +
+            user_web_api_login +
+            `number=${phoneNumber}`)
+
         if (validation()) {
             await axios({
                 method: 'post',
@@ -75,6 +81,7 @@ const Login = ({ navigation }) => {
                             otp: res.data.otp,
                             phone_number: state.phoneNumber
                         });
+                        setUser(res.data)
                         AsyncStorage.setItem("user", JSON.stringify(res.data));
                     } else {
                         showToastWithGravityAndOffset(res.data.msg);
