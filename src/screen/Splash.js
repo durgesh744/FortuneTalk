@@ -13,6 +13,7 @@ const Splash = ({ navigation, route }) => {
 
   const navigate = async () => {
     let providerData = await AsyncStorage.getItem('user');
+    console.log(data, "data a gya hai ")
     let data = JSON.parse(providerData);
     if (data) {
       navigation.navigate("Home");
@@ -23,7 +24,6 @@ const Splash = ({ navigation, route }) => {
 
   useEffect(() => {
     setTimeout(() => {
-console.log("start")
       navigate();
     }, 2000);
   }, []);
@@ -39,7 +39,7 @@ console.log("start")
         style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Image
           source={require('../assets/gifs/splash.gif')}
-          style={{width: SCREEN_WIDTH * 0.65, height: SCREEN_WIDTH * 0.65}}
+          style={{ width: SCREEN_WIDTH * 0.65, height: SCREEN_WIDTH * 0.65 }}
         />
       </LinearGradient>
     </View>

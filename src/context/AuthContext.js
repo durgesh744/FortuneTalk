@@ -23,11 +23,7 @@ export const AuthProvider = ({ children }) => {
     //     console.log(err)
     //   })
   }
-
-  const Logout = () => {
-    AsyncStorage.removeItem("user")
-  }
-
+  
   const isLoggedIn = () => {
     AsyncStorage.getItem("user")
       .then((res) => {

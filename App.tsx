@@ -4,14 +4,17 @@ import StackNavigator from './src/navigation/StackNavigator';
 import {NavigationContainer} from '@react-navigation/native';
 import {Provider} from 'react-redux';
 import store from './src/redux/store/store';
+import {SocketProvider} from './src/context/socket';
 
 function App() {
   return (
     <SafeAreaView style={{flex: 1}}>
       <Provider store={store}>
-        <NavigationContainer>
-          <StackNavigator />
-        </NavigationContainer>
+        <SocketProvider>
+          <NavigationContainer>
+            <StackNavigator />
+          </NavigationContainer>
+        </SocketProvider>
       </Provider>
     </SafeAreaView>
   );

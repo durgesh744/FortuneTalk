@@ -5,7 +5,7 @@ import {
     Image,
     StyleSheet,
 } from 'react-native';
-import React, { createRef, useState } from 'react';
+import React, { createRef, useEffect, useState } from 'react';
 import { Colors, Fonts, Sizes } from '../../assets/style';
 import LinearGradient from 'react-native-linear-gradient';
 import CountryPicker from 'rn-country-picker';
@@ -14,11 +14,15 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import axios from 'axios';
 import {
     api_url2,
+    google_login,
     user_web_api_login,
 } from '../../config/constants';
 import Loader from '../../component/common/Loader';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MyStatusBar from '../../component/common/MyStatusBar';
+import {
+    GoogleSignin,
+} from '@react-native-google-signin/google-signin';
 
 const Login = ({ navigation }) => {
 
@@ -34,21 +38,25 @@ const Login = ({ navigation }) => {
     const validation = () => {
         const numericRegex = /^\d{10}$/;
         if (phoneNumber.length == 0) {
-            setState((pre) => ({ ...pre,  errorMessage: 'Please enter phone number'  }))
+            setState((pre) => ({ ...pre, errorMessage: 'Please enter phone number' }))
             inputRef.current.shake();
             return false;
         } else if (phoneNumber.length != 10) {
-            setState((pre) => ({ ...pre,  errorMessage: 'Please enter correct phone number'  }))
+            setState((pre) => ({ ...pre, errorMessage: 'Please enter correct phone number' }))
             inputRef.current.shake();
             return false;
         } else if (!numericRegex.test(phoneNumber)) {
-            setState((pre) => ({ ...pre,  errorMessage: 'Please enter numeric value'  }))
+            setState((pre) => ({ ...pre, errorMessage: 'Please enter numeric value' }))
             inputRef.current.shake();
             return false;
         } else {
             return true;
         }
     };
+
+    useEffect(() => {
+        GoogleSignin.configure()
+    }, [])
 
     const on_login = async () => {
         setState((pre) => ({ ...pre, isLoading: true }))
@@ -63,11 +71,11 @@ const Login = ({ navigation }) => {
                 .then(res => {
                     setState((pre) => ({ ...pre, isLoading: false }))
                     if (res.data.success) {
-                         AsyncStorage.setItem("user", res.data)
                         navigation.navigate('Otp', {
                             otp: res.data.otp,
-                            phone_number:state.phoneNumber
+                            phone_number: state.phoneNumber
                         });
+                        AsyncStorage.setItem("user", JSON.stringify(res.data));
                     } else {
                         showToastWithGravityAndOffset(res.data.msg);
                     }
@@ -80,6 +88,44 @@ const Login = ({ navigation }) => {
     };
 
     const on_google_login = async () => {
+        try {
+            await GoogleSignin.hasPlayServices();
+            const userInfo = await GoogleSignin.signIn();
+            login_with_google(userInfo?.user)
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
+    const login_with_google = async userData => {
+        try {
+            setState((pre) => ({ ...pre, isLoading: true }))
+            const response = await ApiRequest.postRequest({
+                url: api_url2 + google_login,
+                data: {
+                    social_id: userData?.id,
+                    email: userData?.email,
+                    username: userData?.name,
+                },
+            });
+
+            if (response?.success) {
+                dispatch(UserActions.setUserData(response.data));
+
+                await AsyncStorage.setItem(
+                    'isRegister',
+                    JSON.stringify({ type: 'login', value: true }),
+                );
+                navigation.navigate('Register', {
+                    phone_number: state.phoneNumber
+                });
+            }
+            setState((pre) => ({ ...pre, isLoading: false }))
+        } catch (e) {
+            console.log(e);
+            await AsyncStorage.setItem('isRegister', JSON.stringify({ type: 'profile', value: false }));
+            setState((pre) => ({ ...pre, isLoading: false }))
+        }
     };
 
     const on_facebook_login = () => {

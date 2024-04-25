@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "34914963047",
+    "project_id": "fortunetalk-72305",
+    "storage_bucket": "fortunetalk-72305.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34914963047:android:a5a4455b71746378960ec2",
+        "android_client_info": {
+          "package_name": "com.fortunetalk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34914963047-0v42dq0t51cq2t62g30apqisvhfe6hum.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fortunetalk",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "34914963047-0ek9atkk53hb5g2357cvooaa6pfbtb72.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBy-WjJ2J9e-jhfYJpdqAwJqPmwMR44Tc0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "34914963047-0ek9atkk53hb5g2357cvooaa6pfbtb72.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
