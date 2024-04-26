@@ -6,6 +6,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Colors, Sizes } from '../../../assets/style';
 
 const AstrologerList = ({ navigation, item }) => {
+    console.log(item)
     return (
         <View>
             <TouchableOpacity

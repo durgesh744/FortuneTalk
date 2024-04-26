@@ -1,8 +1,7 @@
-export const base_url = 'https://fortunetest.fortunetalk.co.in/';
-export const api_url = 'https://fortunetest.fortunetalk.co.in/api/';
-
 // custom backend url
-export const api_url2 = 'https://fortunetalk-backend.onrender.com/api/v1/';
+// http://10.0.2.2:3000/
+export const base_url = 'http://10.0.2.2:5000/api/v1';
+export const chat_base_url = 'https://fortunetalk-backend.onrender.com/api/v1/';
 
 export const img_url = 'https://fortunetest.fortunetalk.co.in/admin/uploads/';
 export const img_url_2 = 'https://fortunetest.fortunetalk.co.in/admin/uploads/vendor/';
@@ -110,7 +109,7 @@ export const send_friend_request = 'api2/send_friend_request';
 export const cust_testimonials = 'api/cust_testimonials';
 export const get_mall_cat = 'api/get_mall_cat'
 export const recent_astro = 'api/recentAstro'
-export const call_wating_user  = 'api/call_wating_user'
+export const call_wating_user = 'api/call_wating_user'
 export const user_astro_list = 'api/user_astro_list'
 export const call_waiting_user_pause = 'api/call_waiting_user_pause'
 export const call_waiting_user_delete = 'api/call_waiting_user_delete'
@@ -134,7 +133,7 @@ export const product_review = 'api/product_review'
 export const course_list = 'api/course_list'
 export const skill_list = 'api/skill_list'
 export const astrolist_filter = 'api/astrolist_filter'
-export const moa_filter_astro  = 'WalletCalclation/moa_filter_astro'
+export const moa_filter_astro = 'WalletCalclation/moa_filter_astro'
 export const chat_call_discount_astro_list = 'api/chat_call_discount_astro_list'
 export const chat_call_discount_astro_list_7 = 'api/chat_call_discount_astro_list_7'
 export const get_skills = 'WalletCalclation/get_skills'
@@ -182,7 +181,7 @@ export const update_intake_status = 'api/update_intake_status';
 export const learning_banner = 'api/learning_banner'
 export const home_top_banner = 'api/footer_slider';
 export const get_Astkootable = 'api2/match_ashtakoot_points';
-export const get_Daskoot   = 'api2/match_dashakoot_points';
+export const get_Daskoot = 'api2/match_dashakoot_points';
 export const get_fav = 'api2/basic_numerology';
 export const get_expert = 'api/get_mainexpertise';
 export const get_plan = 'api/get_recharge_plans';
