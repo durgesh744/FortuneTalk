@@ -16,7 +16,6 @@ export const useGetAstrologers = () => {
     useEffect(() => {
         AstrologerServices.getAstro()
             .then((res) => {
-                console.log(res, "respoanse")
                 setAstro(res)
             })
             .catch((err) => {

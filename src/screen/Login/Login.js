@@ -14,6 +14,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import axios from 'axios';
 import {
     api_url2,
+    base_url,
     google_login,
     user_web_api_login,
 } from '../../config/constants';
@@ -62,7 +63,7 @@ const Login = ({ navigation }) => {
     const on_login = async () => {
         setState((pre) => ({ ...pre, isLoading: true }))
 
-        console.log(api_url2 +
+        console.log(base_url +
             user_web_api_login +
             `number=${phoneNumber}`)
 
@@ -70,13 +71,14 @@ const Login = ({ navigation }) => {
             await axios({
                 method: 'post',
                 url:
-                    api_url2 +
+                    base_url +
                     user_web_api_login +
                     `number=${phoneNumber}`,
             })
                 .then(res => {
                     setState((pre) => ({ ...pre, isLoading: false }))
                     if (res.data.success) {
+                        console.log(res.data)
                         navigation.navigate('Otp', {
                             otp: res.data.otp,
                             phone_number: state.phoneNumber

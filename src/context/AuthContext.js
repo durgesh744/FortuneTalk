@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createContext, useContext, useEffect, useState } from "react";
 
-const AuthContext = createContext(null);
+const AuthContext = createContext();
 
 export const useAuth = () => {
   return useContext(AuthContext);
@@ -15,7 +15,6 @@ export const AuthProvider = ({ children }) => {
     AsyncStorage.getItem("user")
       .then((res) => {
         setUser(JSON.parse(res))
-        console.log(res, "res, kjankjfjka")
         setIsLoading(true)
       })
       .catch((error) => {

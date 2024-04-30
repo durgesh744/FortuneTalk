@@ -1,12 +1,11 @@
 import React from 'react'
-import { Image, Text, TouchableOpacity, View } from 'react-native'
+import { Button, Image, Text, TouchableOpacity, View } from 'react-native'
 import { SCREEN_WIDTH } from '../../../config/Screen'
 import Stars from 'react-native-stars';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Colors, Sizes } from '../../../assets/style';
 
-const AstrologerList = ({ navigation, item }) => {
-    console.log(item)
+const AstrologerList = ({ navigation, item, handleRequest, handleWithAstroChat }) => {
     return (
         <View>
             <TouchableOpacity
@@ -89,7 +88,7 @@ const AstrologerList = ({ navigation, item }) => {
                             marginVertical: Sizes.fixPadding,
                         }}>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('chat')}
+                            onPress={() =>  handleWithAstroChat (item)}
                             style={{
                                 width: SCREEN_WIDTH * 0.14,
                                 alignSelf: 'center',
@@ -134,6 +133,10 @@ const AstrologerList = ({ navigation, item }) => {
                                     ? 'Available Now'
                                     : ''}
                         </Text>
+                    </View>
+
+                    <View style={{ paddingBottom: 10 }} >
+                        <Button onPress={() => handleRequest(item)} title='Send Request' />
                     </View>
                 </View>
             </TouchableOpacity>

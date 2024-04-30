@@ -1,13 +1,14 @@
-// custom backend url
-// http://10.0.2.2:3000/
-export const base_url = 'http://10.0.2.2:5000/api/v1';
-export const chat_base_url = 'https://fortunetalk-backend.onrender.com/api/v1/';
+export const base_url = 'http://10.0.2.2:6000/api/v1';
+// export const base_url = 'https://fortunetalk-backend.onrender.com/api/v1';
+
+// export const chat_base_url = 'https://chat-backend-yiwj.onrender.com';
+export const chat_base_url = "http://10.0.2.2:3000/";
 
 export const img_url = 'https://fortunetest.fortunetalk.co.in/admin/uploads/';
 export const img_url_2 = 'https://fortunetest.fortunetalk.co.in/admin/uploads/vendor/';
 export const img_url_3 = 'https://fortunetest.fortunetalk.co.in/admin/';
 
-export const user_web_api_login = 'user/otp?';
+export const user_web_api_login = '/user/otp?';
 
 export const api2_get_countries = 'api2/get_countries';
 export const api2_get_state = 'api2/get_state';
@@ -201,3 +202,36 @@ export const live_streaming_app_sign =
 
 export const userID = '1c1bf0c9a7f1a39d8c48b76b7a8a427f'
 export const apikey = '626108'
+
+
+const ALERT = "ALERT";
+const REFETCH_CHATS = "REFETCH_CHATS";
+
+const NEW_ATTACHMENT = "NEW_ATTACHMENT";
+const NEW_MESSAGE_ALERT = "NEW_MESSAGE_ALERT";
+
+const NEW_REQUEST = "NEW_REQUEST";
+const NEW_MESSAGE = "NEW_MESSAGE";
+
+const START_TYPING = "START_TYPING";
+const STOP_TYPING = "STOP_TYPING";
+
+const CHAT_JOINED = "CHAT_JOINED";
+const CHAT_LEAVED = "CHAT_LEAVED";
+
+const ONLINE_USERS = "ONLINE_USERS";
+
+export {
+  ALERT,
+  REFETCH_CHATS,
+  NEW_ATTACHMENT,
+  NEW_MESSAGE_ALERT,
+  NEW_REQUEST,
+  NEW_MESSAGE,
+  START_TYPING,
+  STOP_TYPING,
+  CHAT_JOINED,
+  CHAT_LEAVED,
+  ONLINE_USERS,
+};
+

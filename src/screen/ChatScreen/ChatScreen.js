@@ -1,40 +1,67 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Colors, Sizes } from '../../assets/style'
-import MyStatusBar from '../../component/common/MyStatusBar'
 import Loader from '../../component/common/Loader'
 import { KeyboardAvoidingView } from 'react-native'
+import { getSocket } from '../../context/socket'
+import { NEW_MESSAGE } from '../../config/constants'
 import { GiftedChat } from 'react-native-gifted-chat';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { getSocket } from '../../context/socket'
+import MyStatusBar from '../../component/common/MyStatusBar'
+import React, { useCallback, useEffect, useState } from 'react'
+import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { useGetOldChat, useSocketEvents } from '../../hooks/chat'
+import { convertToNewFormat } from '../../utils/function'
+import { useAuth } from '../../context/AuthContext'
 
-const ChatScreen = () => {
+const ChatScreen = ({ navigation, route }) => {
+    const {user} = useAuth()
+    console.log()
+    // console.log(route.params.chatId, "route.params.chatId",);
+    const chatId = route.params.chatId
+    const members = route.params.members
+
+    const [page, setPage] = useState(1)
+    const { oldChat, fetchOldMessages } = useGetOldChat(chatId, page)
+
     const [isLoading, setIsLoading] = useState([]);
     const [messages, setMessages] = useState([])
+
+    // console.log(oldChat.messages, "oldChat")
+
     const socket = getSocket()
+    // console.log(oldChat, "oldChat oldChat oldChat oldChat")
     console.log(socket.connected, socket.id);
 
     const onSend = useCallback((messages = []) => {
-        setMessages(previousMessages =>
-            GiftedChat.append(previousMessages, messages),
-        )
-        console.log(messages)
+        if (messages.length > 0) {
+            setMessages(previousMessages =>
+                GiftedChat.append(previousMessages, messages),
+            )
+            let message = messages[0].text
+            socket.emit(NEW_MESSAGE, { chatId, members, message })
+        }
     }, [])
 
     useEffect(() => {
-        setMessages([
-            {
-                _id: 1,
-                text: 'Hello developer',
-                createdAt: new Date(),
-                user: {
-                    _id: 2,
-                    name: 'React Native',
-                    avatar: 'https://placeimg.com/140/140/any',
-                },
-            },
-        ])
-    }, [])
+        if (oldChat?.messages) {
+            const oldMessages =convertToNewFormat(oldChat?.messages)
+            setMessages(oldMessages.reverse())
+        }
+    }, [oldChat])
+
+    // const newMessagesHandler = useCallback((data) => {
+    //     // console.log(data.message)
+    // }, [])
+
+    // const eventHandlers = { [NEW_MESSAGE]: newMessagesHandler }
+    // useSocketEvents(socket, eventHandlers)
+
+    // useEffect(() => {
+    // setMessages(oldMessages)
+    // }, [])
+
+    useEffect(() => {
+        fetchOldMessages(chatId, page)
+    }, [chatId])
 
     return (
         <View style={{ flex: 1, backgroundColor: Colors.primaryLight }}>
@@ -52,7 +79,7 @@ const ChatScreen = () => {
                         messages={messages}
                         onSend={messages => onSend(messages)}
                         user={{
-                            _id: 1,
+                            _id: user?.user?.id,
                         }}
                     />
                 </ImageBackground>
