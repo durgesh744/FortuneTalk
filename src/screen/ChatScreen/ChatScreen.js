@@ -14,7 +14,6 @@ import { useAuth } from '../../context/AuthContext'
 
 const ChatScreen = ({ navigation, route }) => {
     const {user} = useAuth()
-    console.log()
     // console.log(route.params.chatId, "route.params.chatId",);
     const chatId = route.params.chatId
     const members = route.params.members
